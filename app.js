@@ -12,13 +12,31 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
+function isCurrentEvent(timeStr) {
+    const now = new Date();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    const times = timeStr.split(' - ');
+    if (times.length !== 2) return false;
+    const [start, end] = times;
+    const [startH, startM] = start.split(':').map(Number);
+    const [endH, endM] = end.split(':').map(Number);
+    const startTotal = startH * 60 + startM;
+    const endTotal = endH * 60 + endM;
+    return currentMinutes >= startTotal && currentMinutes < endTotal;
+}
+
 database.ref('agenda').on('value', (snapshot) => {
     const data = snapshot.val();
     const tbody = document.getElementById('agenda-body');
     tbody.innerHTML = '';
     if (data) {
-        Object.keys(data).forEach(key => {
-            tbody.innerHTML += `<tr>
+        Object.keys(data).sort((a, b) => {
+            const timeA = data[a].time.split(' - ')[0];
+            const timeB = data[b].time.split(' - ')[0];
+            return timeA.localeCompare(timeB);
+        }).forEach(key => {
+            const activeClass = isCurrentEvent(data[key].time) ? 'class="active-event"' : '';
+            tbody.innerHTML += `<tr ${activeClass}>
                 <td style="width:150px;"><b>${data[key].time}</b></td>
                 <td>${data[key].title}</td>
             </tr>`;
