@@ -1,66 +1,53 @@
-const firebaseConfig = {
-    apiKey: "AIzaSyDSc42XmFPUeWevgpYiVG61eaigEHna-G4",
-    authDomain: "karsan-kariyer-gunu-ajanda.firebaseapp.com",
-    databaseURL: "https://karsan-kariyer-gunu-ajanda-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "karsan-kariyer-gunu-ajanda",
-    storageBucket: "karsan-kariyer-gunu-ajanda.firebasestorage.app",
-    messagingSenderId: "370590417461",
-    appId: "1:370590417461:web:e6903ef974571de133277c",
-    measurementId: "G-HGNZVWPEQ6"
-};
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karsan Kariyer Günü - Yönetim Paneli</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="karsan.jpg" alt="Karsan Logo" class="logo">
+            <h2 style="color: var(--dark-grey); margin-top: 10px;">Yönetici Paneli</h2>
+        </header>
+        
+        <div id="login-section" class="admin-panel">
+            <input type="text" id="username" placeholder="Kullanıcı Adı">
+            <input type="password" id="password" placeholder="Şifre">
+            <button onclick="login()">Giriş Yap</button>
+        </div>
 
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-const auth = firebase.auth();
+        <div id="edit-section" class="admin-panel" style="display:none;">
+            <h3>Yeni Etkinlik Ekle</h3>
+            
+            <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px;">
+                <span>Başlangıç:</span>
+                <select id="start-h"></select> : <select id="start-m"></select>
+                <span style="margin-left: 20px;">Bitiş:</span>
+                <select id="end-h"></select> : <select id="end-m"></select>
+            </div>
 
-async function login() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const email = username === "karsan" ? "ecenurcetiner1@gmail.com" : "";
-
-    try {
-        await auth.signInWithEmailAndPassword(email, password);
-        document.getElementById('login-section').style.display = 'none';
-        document.getElementById('edit-section').style.display = 'block';
-        loadAdminAgenda();
-    } catch (error) {
-        alert("Hatalı giriş.");
-    }
-}
-
-function logout() {
-    auth.signOut().then(() => {
-        location.reload();
-    });
-}
-
-function addEvent() {
-    const time = document.getElementById('time').value;
-    const title = document.getElementById('title').value;
-    if(time && title) {
-        database.ref('agenda').push({ time, title });
-        document.getElementById('time').value = '';
-        document.getElementById('title').value = '';
-    }
-}
-
-function deleteEvent(key) {
-    database.ref('agenda/' + key).remove();
-}
-
-function loadAdminAgenda() {
-    database.ref('agenda').on('value', (snapshot) => {
-        const data = snapshot.val();
-        const tbody = document.getElementById('admin-agenda-body');
-        tbody.innerHTML = '';
-        if (data) {
-            Object.keys(data).forEach(key => {
-                tbody.innerHTML += `<tr>
-                    <td><b>${data[key].time}</b></td>
-                    <td>${data[key].title}</td>
-                    <td><button class="delete-btn" onclick="deleteEvent('${key}')">Sil</button></td>
-                </tr>`;
-            });
-        }
-    });
-}
+            <input type="text" id="title" placeholder="Etkinlik Adı">
+            <button onclick="addEvent()">Ekle</button>
+            <button onclick="logout()" style="background:#333;">Çıkış Yap</button>
+            
+            <table style="margin-top:20px;">
+                <thead>
+                    <tr>
+                        <th>Saat</th>
+                        <th>Etkinlik</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-agenda-body"></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="admin.js"></script>
+</body>
+</html>
