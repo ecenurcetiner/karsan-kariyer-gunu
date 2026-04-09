@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajanda Yönetimi</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="karsan.jpg" alt="Karsan Logo" class="logo">
+            <h2 style="color: var(--dark-grey); margin-top: 10px;">Yönetici Paneli</h2>
+        </header>
+        
+        <div id="login-section" class="admin-panel">
+            <input type="text" id="username" placeholder="Kullanıcı Adı">
+            <input type="password" id="password" placeholder="Şifre">
+            <button onclick="login()">Giriş Yap</button>
+        </div>
+
+        <div id="edit-section" class="admin-panel" style="display:none;">
+            <h3>Yeni Etkinlik Ekle</h3>
+            <input type="text" id="time" placeholder="Örn: 10:00 - 10:25">
+            <input type="text" id="title" placeholder="Etkinlik Adı">
+            <button onclick="addEvent()">Ekle</button>
+            <button onclick="logout()" style="background:#333;">Çış Yap</button>
+            
+            <table style="margin-top:20px;">
+                <tbody id="admin-agenda-body"></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="admin.js"></script>
+</body>
+</html>

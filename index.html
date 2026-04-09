@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karsan Kariyer Günü - Ajanda</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="karsan.jpg" alt="Karsan Logo" class="logo">
+        </header>
+        <div id="agenda-container">
+            <table id="agenda-table">
+                <thead>
+                    <tr>
+                        <th>Saat</th>
+                        <th>Etkinlik</th>
+                    </tr>
+                </thead>
+                <tbody id="agenda-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
