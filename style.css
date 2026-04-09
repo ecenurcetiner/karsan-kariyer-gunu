@@ -3,35 +3,142 @@
     --dark-grey: #333333;
     --white: #FFFFFF;
     --bg-grey: #F4F4F4;
+    --border-color: #DDDDDD;
 }
+
 body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-grey);
-    margin: 0; padding: 20px;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
 }
+
 .container {
-    max-width: 900px; margin: 0 auto;
-    background: var(--white); box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    border-radius: 8px; overflow: hidden;
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--white);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
 }
+
 header {
-    background: var(--white); padding: 20px;
-    text-align: center; border-bottom: 4px solid var(--karsan-red);
+    background: var(--white);
+    padding: 25px;
+    text-align: center;
+    border-bottom: 5px solid var(--karsan-red);
 }
-.logo { height: 60px; }
-table { width: 100%; border-collapse: collapse; }
+
+.logo {
+    height: 65px;
+    width: auto;
+    object-fit: contain;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+}
+
 th {
-    background-color: var(--karsan-red); color: var(--white);
-    padding: 15px; text-align: left; font-size: 0.9em;
+    background-color: var(--karsan-red);
+    color: var(--white);
+    padding: 18px;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
 }
-td { padding: 15px; border-bottom: 1px solid #ddd; color: var(--dark-grey); }
-.admin-panel { padding: 20px; }
-input { 
-    padding: 10px; margin: 5px 0; border: 1px solid #ccc; 
-    width: 100%; box-sizing: border-box; border-radius: 4px;
+
+td {
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--dark-grey);
+    font-size: 0.95rem;
 }
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Canlı Etkinlik Vurgusu */
+.active-event {
+    background-color: var(--karsan-red) !important;
+    transition: background-color 0.3s ease;
+}
+
+.active-event td {
+    color: var(--white) !important;
+    font-weight: 700;
+}
+
+.active-event td b {
+    color: var(--white) !important;
+}
+
+/* Yönetici Paneli Bileşenleri */
+.admin-panel {
+    padding: 30px;
+}
+
+h2, h3 {
+    color: var(--dark-grey);
+    margin-top: 0;
+}
+
+input {
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 1px solid #CCCCCC;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    border-color: var(--karsan-red);
+    outline: none;
+}
+
 button {
-    padding: 10px 20px; margin-top: 10px; border: none; border-radius: 4px;
-    background: var(--karsan-red); color: white; cursor: pointer; font-weight: bold;
+    padding: 12px 24px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 6px;
+    background: var(--karsan-red);
+    color: var(--white);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: opacity 0.2s;
 }
-.delete-btn { background: #333; padding: 5px 10px; }
+
+button:hover {
+    opacity: 0.9;
+}
+
+.delete-btn {
+    background: var(--dark-grey);
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+
+/* Mobil Uyumluluk */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    th, td {
+        padding: 12px 8px;
+        font-size: 0.8rem;
+    }
+    
+    .logo {
+        height: 50px;
+    }
+}
