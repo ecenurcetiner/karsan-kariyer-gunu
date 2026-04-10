@@ -12,14 +12,13 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// Init AOS
+// Init AOS ve Ortak Fonksiyonlar
 document.addEventListener("DOMContentLoaded", function() {
     AOS.init({ duration: 800, once: true });
     checkDarkMode();
     initCountdown();
 });
 
-// UI Scripts
 function toggleNav() {
     const nav = document.getElementById('nav-links');
     if(nav) nav.classList.toggle('show');
@@ -51,7 +50,7 @@ function initCountdown() {
     }, 1000);
 }
 
-// Agenda Logic
+// Ajanda Mantığı
 function isCurrentEvent(timeStr) {
     const now = new Date();
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
@@ -76,7 +75,7 @@ database.ref('agenda').on('value', (snapshot) => {
     }
 });
 
-// Network Logic
+// Networking Mantığı
 function toggleNetworkForm() {
     const form = document.getElementById('network-form-section');
     if(form) form.style.display = form.style.display === 'none' ? 'block' : 'none';
