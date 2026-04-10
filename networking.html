@@ -18,16 +18,19 @@
             <a href="networking.html" style="text-decoration: none; color: var(--karsan-red); font-weight: bold;">Networking Havuzu</a>
         </nav>
         
-        <div class="admin-panel" style="background: var(--white); border-bottom: 2px solid var(--border-color);">
-            <h3 style="text-align:center;">Aramıza Katıl</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div style="text-align: right; padding: 15px 20px 0 20px;">
+            <button onclick="toggleNetworkForm()" style="margin: 0; background: var(--dark-grey);">+ Yeni Ekle</button>
+        </div>
+
+        <div id="network-form-section" class="admin-panel" style="display:none; background: var(--white); border-bottom: 2px solid var(--border-color);">
+            <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
                 <input type="text" id="net-name" placeholder="Ad Soyad">
                 <input type="text" id="net-uni" placeholder="Üniversite / Bölüm">
                 <input type="text" id="net-linkedin" placeholder="LinkedIn Profil URL">
-                <input type="text" id="net-photo" placeholder="Fotoğraf URL (İsteğe Bağlı)">
             </div>
             <button onclick="addNetwork()" style="width: 100%;">Listeye Ekle</button>
         </div>
+        
         <div id="networking-grid" class="grid-container"></div>
     </div>
     <script src="app.js"></script>
