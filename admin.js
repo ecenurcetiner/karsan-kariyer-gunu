@@ -13,6 +13,27 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 const auth = firebase.auth();
 
+document.addEventListener("DOMContentLoaded", function() {
+    AOS.init({ duration: 800, once: true });
+    checkDarkMode();
+});
+
+function toggleNav() {
+    const nav = document.getElementById('nav-links');
+    if(nav) nav.classList.toggle('show');
+}
+
+function checkDarkMode() {
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+    }
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+}
+
 function fillTimeSelectors() {
     const ids = ['start-h', 'end-h', 'start-m', 'end-m'];
     ids.forEach(id => {
@@ -59,7 +80,6 @@ function addEvent() {
 }
 
 function deleteEvent(key) { if(confirm("Silinsin mi?")) database.ref('agenda/' + key).remove(); }
-
 function deleteNetwork(key) { if(confirm("Silinsin mi?")) database.ref('networking/' + key).remove(); }
 
 function loadAdminAgenda() {
