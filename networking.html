@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karsan Kariyer Günü - Networking Havuzu</title>
+    <title>Karsan Kariyer Günü - Networking</title>
+    <link rel="icon" type="image/png" href="Karsan.png">
     <link rel="stylesheet" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
@@ -13,24 +14,23 @@
         <header>
             <img src="karsan.jpg" alt="Karsan Logo" class="logo">
         </header>
-        <nav style="text-align: center; background: #eee; padding: 10px;">
-            <a href="index.html" style="margin-right: 20px; text-decoration: none; color: var(--karsan-red); font-weight: bold;">Ajanda</a>
-            <a href="networking.html" style="text-decoration: none; color: var(--karsan-red); font-weight: bold;">Networking Havuzu</a>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link">Ajanda</a>
+            <a href="networking.html" class="nav-link active">Networking Havuzu</a>
         </nav>
-        
-        <div style="text-align: right; padding: 15px 20px 0 20px;">
-            <button onclick="toggleNetworkForm()" style="margin: 0; background: var(--dark-grey);">+ Yeni Ekle</button>
+        <div class="header-action">
+            <button onclick="toggleNetworkForm()" class="btn-primary">+ Yeni Ekle</button>
         </div>
-
-        <div id="network-form-section" class="admin-panel" style="display:none; background: var(--white); border-bottom: 2px solid var(--border-color);">
-            <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
-                <input type="text" id="net-name" placeholder="Ad Soyad">
-                <input type="text" id="net-uni" placeholder="Üniversite / Bölüm">
-                <input type="text" id="net-linkedin" placeholder="LinkedIn Profil URL">
+        <div id="network-form-section" class="form-section" style="display:none;">
+            <h3>Aramıza Katıl</h3>
+            <div class="form-grid">
+                <input type="text" id="net-name" placeholder="İsim Soyisim">
+                <input type="text" id="net-uni" placeholder="Üniversite ya da Departman">
+                <input type="text" id="net-dept" placeholder="Bölüm ya da Pozisyon">
+                <input type="text" id="net-linkedin" placeholder="Linkedin Profil URL">
             </div>
-            <button onclick="addNetwork()" style="width: 100%;">Listeye Ekle</button>
+            <button onclick="addNetwork()" class="btn-submit">Listeye Ekle</button>
         </div>
-        
         <div id="networking-grid" class="grid-container"></div>
     </div>
     <script src="app.js"></script>
