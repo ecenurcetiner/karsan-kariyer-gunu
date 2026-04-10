@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karsan Kariyer Günü - Networking Havuzu</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="karsan.jpg" alt="Karsan Logo" class="logo">
+        </header>
+        <nav style="text-align: center; background: #eee; padding: 10px;">
+            <a href="index.html" style="margin-right: 20px; text-decoration: none; color: var(--karsan-red); font-weight: bold;">Ajanda</a>
+            <a href="networking.html" style="text-decoration: none; color: var(--karsan-red); font-weight: bold;">Networking Havuzu</a>
+        </nav>
+        
+        <div class="admin-panel" style="background: var(--white); border-bottom: 2px solid var(--border-color);">
+            <h3 style="text-align:center;">Aramıza Katıl</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <input type="text" id="net-name" placeholder="Ad Soyad">
+                <input type="text" id="net-uni" placeholder="Üniversite / Bölüm">
+                <input type="text" id="net-linkedin" placeholder="LinkedIn Profil URL">
+                <input type="text" id="net-photo" placeholder="Fotoğraf URL (İsteğe Bağlı)">
+            </div>
+            <button onclick="addNetwork()" style="width: 100%;">Listeye Ekle</button>
+        </div>
+        <div id="networking-grid" class="grid-container"></div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
