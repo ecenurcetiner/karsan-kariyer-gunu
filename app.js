@@ -13,14 +13,11 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
 document.addEventListener("DOMContentLoaded", function() {
-    AOS.init({ duration: 800, once: true });
+    if (typeof AOS !== 'undefined') {
+        AOS.init({ duration: 800, once: true });
+    }
     initCountdown();
 });
-
-function toggleNav() {
-    const nav = document.getElementById('nav-links');
-    if(nav) nav.classList.toggle('show');
-}
 
 function initCountdown() {
     const cdElement = document.getElementById('countdown');
