@@ -24,14 +24,24 @@ function toggleNav() {
 }
 
 function checkDarkMode() {
-    if (localStorage.getItem('darkMode') === 'true') {
+    const isDark = localStorage.getItem('darkMode') === 'true';
+    if (isDark) {
         document.body.classList.add('dark-mode');
+    }
+    const toggle = document.getElementById('theme-toggle');
+    if (toggle) {
+        toggle.checked = isDark;
     }
 }
 
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
-    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    const isDark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDark);
+    const toggle = document.getElementById('theme-toggle');
+    if (toggle) {
+        toggle.checked = isDark;
+    }
 }
 
 function fillTimeSelectors() {
