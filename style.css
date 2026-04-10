@@ -5,7 +5,6 @@
     --bg-grey: #F4F4F4;
     --border-color: #DDDDDD;
 }
-
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-grey);
@@ -13,7 +12,6 @@ body {
     padding: 20px;
     line-height: 1.6;
 }
-
 .container {
     max-width: 900px;
     margin: 0 auto;
@@ -22,26 +20,22 @@ body {
     border-radius: 12px;
     overflow: hidden;
 }
-
 header {
     background: var(--white);
     padding: 25px;
     text-align: center;
     border-bottom: 5px solid var(--karsan-red);
 }
-
 .logo {
     height: 65px;
     width: auto;
     object-fit: contain;
 }
-
 table {
     width: 100%;
     border-collapse: collapse;
     background: var(--white);
 }
-
 th {
     background-color: var(--karsan-red);
     color: var(--white);
@@ -51,43 +45,30 @@ th {
     font-size: 0.85rem;
     letter-spacing: 1px;
 }
-
 td {
     padding: 16px;
     border-bottom: 1px solid var(--border-color);
     color: var(--dark-grey);
     font-size: 0.95rem;
 }
-
 tr:last-child td {
     border-bottom: none;
 }
-
-/* Canlı Etkinlik Vurgusu */
 .active-event {
     background-color: var(--karsan-red) !important;
     transition: background-color 0.3s ease;
 }
-
-.active-event td {
+.active-event td, .active-event td b {
     color: var(--white) !important;
     font-weight: 700;
 }
-
-.active-event td b {
-    color: var(--white) !important;
-}
-
-/* Yönetici Paneli Bileşenleri */
 .admin-panel {
     padding: 30px;
 }
-
 h2, h3 {
     color: var(--dark-grey);
     margin-top: 0;
 }
-
 input {
     padding: 12px 15px;
     margin: 10px 0;
@@ -98,12 +79,10 @@ input {
     font-size: 1rem;
     transition: border-color 0.2s;
 }
-
 input:focus {
     border-color: var(--karsan-red);
     outline: none;
 }
-
 button {
     padding: 12px 24px;
     margin-top: 10px;
@@ -116,18 +95,14 @@ button {
     font-size: 1rem;
     transition: opacity 0.2s;
 }
-
 button:hover {
     opacity: 0.9;
 }
-
 .delete-btn {
     background: var(--dark-grey);
     padding: 6px 12px;
     font-size: 0.85rem;
 }
-
-/* Networking Grid & Card CSS */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -135,7 +110,6 @@ button:hover {
     padding: 20px;
     background: var(--bg-grey);
 }
-
 .network-card {
     background: var(--white);
     border-radius: 8px;
@@ -145,26 +119,27 @@ button:hover {
     border: 1px solid var(--border-color);
     transition: transform 0.2s, box-shadow 0.2s;
 }
-
 .network-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
-
 .network-name {
     font-weight: bold;
     color: var(--dark-grey);
     margin-bottom: 5px;
     font-size: 1.1rem;
 }
-
 .network-uni {
     font-size: 0.85rem;
     color: #666;
-    margin-bottom: 15px;
-    min-height: 40px;
+    margin-bottom: 5px;
 }
-
+.network-dept {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 15px;
+    min-height: 20px;
+}
 .connect-btn {
     background: #0A66C2;
     display: block;
@@ -175,20 +150,69 @@ button:hover {
     font-size: 0.9rem;
     font-weight: bold;
 }
-
-/* Mobil Uyumluluk */
+.nav-menu {
+    background: #f8f8f8;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+.nav-link {
+    text-decoration: none;
+    color: var(--dark-grey);
+    margin: 0 15px;
+    font-weight: bold;
+}
+.nav-link.active {
+    color: var(--karsan-red);
+}
+.header-action {
+    padding: 10px 20px;
+    text-align: right;
+}
+.form-section {
+    padding: 20px;
+    border-bottom: 2px solid var(--border-color);
+}
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.admin-tabs {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+.btn-dark {
+    background: #333;
+}
+.btn-primary {
+    background: var(--dark-grey);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0;
+}
+.btn-submit {
+    width: 100%;
+}
+.time-select {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+.time-select select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
 @media (max-width: 600px) {
-    body {
-        padding: 10px;
-    }
-    th, td {
-        padding: 12px 8px;
-        font-size: 0.8rem;
-    }
-    .logo {
-        height: 50px;
-    }
-    .admin-panel > div {
-        grid-template-columns: 1fr !important;
-    }
+    body { padding: 10px; }
+    th, td { padding: 12px 8px; font-size: 0.8rem; }
+    .logo { height: 50px; }
+    .form-grid { grid-template-columns: 1fr; }
 }
