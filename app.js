@@ -25,9 +25,12 @@ function isCurrentEvent(timeStr) {
     return currentMinutes >= startTotal && currentMinutes < endTotal;
 }
 
+// Ajanda Dinleyicisi
 database.ref('agenda').on('value', (snapshot) => {
     const data = snapshot.val();
     const tbody = document.getElementById('agenda-body');
+    if (!tbody) return;
+
     tbody.innerHTML = '';
     if (data) {
         Object.keys(data).sort((a, b) => {
@@ -40,6 +43,54 @@ database.ref('agenda').on('value', (snapshot) => {
                 <td style="width:150px;"><b>${data[key].time}</b></td>
                 <td>${data[key].title}</td>
             </tr>`;
+        });
+    }
+});
+
+// Networking Fonksiyonları
+function addNetwork() {
+    const name = document.getElementById('net-name').value;
+    const uni = document.getElementById('net-uni').value;
+    const linkedin = document.getElementById('net-linkedin').value;
+    const photo = document.getElementById('net-photo').value || 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
+
+    const linkedinPattern = /linkedin\.com/i;
+
+    if (name && linkedin) {
+        if (!linkedinPattern.test(linkedin)) {
+            alert("Lütfen geçerli bir LinkedIn URL'si girin.");
+            return;
+        }
+
+        database.ref('networking').push({ name, uni, linkedin, photo });
+        document.getElementById('net-name').value = '';
+        document.getElementById('net-uni').value = '';
+        document.getElementById('net-linkedin').value = '';
+        document.getElementById('net-photo').value = '';
+        alert("Ağa başarıyla katıldınız.");
+    } else {
+        alert("Lütfen Ad Soyad ve LinkedIn URL alanlarını doldurun.");
+    }
+}
+
+// Networking Dinleyicisi
+database.ref('networking').on('value', (snapshot) => {
+    const data = snapshot.val();
+    const grid = document.getElementById('networking-grid');
+    if (!grid) return;
+    
+    grid.innerHTML = '';
+    if (data) {
+        Object.keys(data).reverse().forEach(key => {
+            const item = data[key];
+            grid.innerHTML += `
+                <div class="network-card">
+                    <img src="${item.photo}" class="network-photo" alt="Profil">
+                    <div class="network-name">${item.name}</div>
+                    <div class="network-uni">${item.uni}</div>
+                    <a href="${item.linkedin}" target="_blank" class="connect-btn">Bağlantı Kur</a>
+                </div>
+            `;
         });
     }
 });
