@@ -12,6 +12,46 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
+// Init AOS
+document.addEventListener("DOMContentLoaded", function() {
+    AOS.init({ duration: 800, once: true });
+    checkDarkMode();
+    initCountdown();
+});
+
+// UI Scripts
+function toggleNav() {
+    const nav = document.getElementById('nav-links');
+    if(nav) nav.classList.toggle('show');
+}
+
+function checkDarkMode() {
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+    }
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+}
+
+function initCountdown() {
+    const cdElement = document.getElementById('countdown');
+    if (!cdElement) return;
+    const targetDate = new Date('May 21, 2026 09:00:00').getTime();
+    setInterval(() => {
+        const now = new Date().getTime();
+        const d = targetDate - now;
+        if (d < 0) { cdElement.innerHTML = "Etkinlik Başladı!"; return; }
+        const days = Math.floor(d / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
+        cdElement.innerHTML = `${days} Gün ${hours} Saat ${mins} Dakika`;
+    }, 1000);
+}
+
+// Agenda Logic
 function isCurrentEvent(timeStr) {
     const now = new Date();
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
@@ -36,6 +76,7 @@ database.ref('agenda').on('value', (snapshot) => {
     }
 });
 
+// Network Logic
 function toggleNetworkForm() {
     const form = document.getElementById('network-form-section');
     if(form) form.style.display = form.style.display === 'none' ? 'block' : 'none';
@@ -46,7 +87,6 @@ function addNetwork() {
     const uni = document.getElementById('net-uni').value;
     const dept = document.getElementById('net-dept').value;
     const linkedin = document.getElementById('net-linkedin').value;
-    
     const linkedinPattern = /linkedin\.com/i;
 
     if (name && linkedin) {
@@ -71,7 +111,7 @@ database.ref('networking').on('value', (snapshot) => {
         Object.keys(data).reverse().forEach(key => {
             const item = data[key];
             grid.innerHTML += `
-                <div class="network-card">
+                <div class="network-card" data-aos="zoom-in">
                     <div class="network-name">${item.name}</div>
                     <div class="network-uni">${item.uni}</div>
                     <div class="network-dept">${item.dept}</div>
