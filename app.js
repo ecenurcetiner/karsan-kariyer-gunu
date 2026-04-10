@@ -20,70 +20,53 @@ function isCurrentEvent(timeStr) {
     const [start, end] = times;
     const [startH, startM] = start.split(':').map(Number);
     const [endH, endM] = end.split(':').map(Number);
-    const startTotal = startH * 60 + startM;
-    const endTotal = endH * 60 + endM;
-    return currentMinutes >= startTotal && currentMinutes < endTotal;
+    return currentMinutes >= (startH * 60 + startM) && currentMinutes < (endH * 60 + endM);
 }
 
-// Ajanda Dinleyicisi
 database.ref('agenda').on('value', (snapshot) => {
-    const data = snapshot.val();
     const tbody = document.getElementById('agenda-body');
     if (!tbody) return;
-
     tbody.innerHTML = '';
+    const data = snapshot.val();
     if (data) {
-        Object.keys(data).sort((a, b) => {
-            const timeA = data[a].time.split(' - ')[0];
-            const timeB = data[b].time.split(' - ')[0];
-            return timeA.localeCompare(timeB);
-        }).forEach(key => {
+        Object.keys(data).sort((a,b) => data[a].time.localeCompare(data[b].time)).forEach(key => {
             const activeClass = isCurrentEvent(data[key].time) ? 'class="active-event"' : '';
-            tbody.innerHTML += `<tr ${activeClass}>
-                <td style="width:150px;"><b>${data[key].time}</b></td>
-                <td>${data[key].title}</td>
-            </tr>`;
+            tbody.innerHTML += `<tr ${activeClass}><td><b>${data[key].time}</b></td><td>${data[key].title}</td></tr>`;
         });
     }
 });
 
-// Networking Form Görünürlük Kontrolü
 function toggleNetworkForm() {
     const form = document.getElementById('network-form-section');
-    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    if(form) form.style.display = form.style.display === 'none' ? 'block' : 'none';
 }
 
-// Networking Fonksiyonları
 function addNetwork() {
     const name = document.getElementById('net-name').value;
     const uni = document.getElementById('net-uni').value;
+    const dept = document.getElementById('net-dept').value;
     const linkedin = document.getElementById('net-linkedin').value;
+    
     const linkedinPattern = /linkedin\.com/i;
 
     if (name && linkedin) {
         if (!linkedinPattern.test(linkedin)) {
-            alert("Lütfen geçerli bir LinkedIn URL'si girin.");
+            alert("Geçerli bir LinkedIn URL'si girin.");
             return;
         }
-
-        database.ref('networking').push({ name, uni, linkedin });
-        document.getElementById('net-name').value = '';
-        document.getElementById('net-uni').value = '';
-        document.getElementById('net-linkedin').value = '';
+        database.ref('networking').push({ name, uni, dept, linkedin });
+        ['net-name', 'net-uni', 'net-dept', 'net-linkedin'].forEach(id => document.getElementById(id).value = '');
         toggleNetworkForm();
-        alert("Ağa başarıyla katıldınız.");
     } else {
-        alert("Lütfen Ad Soyad ve LinkedIn URL alanlarını doldurun.");
+        alert("İsim Soyisim ve LinkedIn URL alanları zorunludur.");
     }
 }
 
-// Networking Dinleyicisi
 database.ref('networking').on('value', (snapshot) => {
-    const data = snapshot.val();
     const grid = document.getElementById('networking-grid');
     if (!grid) return;
-    
     grid.innerHTML = '';
+    const data = snapshot.val();
     if (data) {
         Object.keys(data).reverse().forEach(key => {
             const item = data[key];
@@ -91,9 +74,9 @@ database.ref('networking').on('value', (snapshot) => {
                 <div class="network-card">
                     <div class="network-name">${item.name}</div>
                     <div class="network-uni">${item.uni}</div>
+                    <div class="network-dept">${item.dept}</div>
                     <a href="${item.linkedin}" target="_blank" class="connect-btn">Bağlantı Kur</a>
-                </div>
-            `;
+                </div>`;
         });
     }
 });
