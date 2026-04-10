@@ -47,13 +47,17 @@ database.ref('agenda').on('value', (snapshot) => {
     }
 });
 
+// Networking Form Görünürlük Kontrolü
+function toggleNetworkForm() {
+    const form = document.getElementById('network-form-section');
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+}
+
 // Networking Fonksiyonları
 function addNetwork() {
     const name = document.getElementById('net-name').value;
     const uni = document.getElementById('net-uni').value;
     const linkedin = document.getElementById('net-linkedin').value;
-    const photo = document.getElementById('net-photo').value || 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
-
     const linkedinPattern = /linkedin\.com/i;
 
     if (name && linkedin) {
@@ -62,11 +66,11 @@ function addNetwork() {
             return;
         }
 
-        database.ref('networking').push({ name, uni, linkedin, photo });
+        database.ref('networking').push({ name, uni, linkedin });
         document.getElementById('net-name').value = '';
         document.getElementById('net-uni').value = '';
         document.getElementById('net-linkedin').value = '';
-        document.getElementById('net-photo').value = '';
+        toggleNetworkForm();
         alert("Ağa başarıyla katıldınız.");
     } else {
         alert("Lütfen Ad Soyad ve LinkedIn URL alanlarını doldurun.");
@@ -85,7 +89,6 @@ database.ref('networking').on('value', (snapshot) => {
             const item = data[key];
             grid.innerHTML += `
                 <div class="network-card">
-                    <img src="${item.photo}" class="network-photo" alt="Profil">
                     <div class="network-name">${item.name}</div>
                     <div class="network-uni">${item.uni}</div>
                     <a href="${item.linkedin}" target="_blank" class="connect-btn">Bağlantı Kur</a>
