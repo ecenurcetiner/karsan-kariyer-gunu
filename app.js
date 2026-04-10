@@ -12,7 +12,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// Init AOS ve Ortak Fonksiyonlar
 document.addEventListener("DOMContentLoaded", function() {
     AOS.init({ duration: 800, once: true });
     checkDarkMode();
@@ -25,14 +24,24 @@ function toggleNav() {
 }
 
 function checkDarkMode() {
-    if (localStorage.getItem('darkMode') === 'true') {
+    const isDark = localStorage.getItem('darkMode') === 'true';
+    if (isDark) {
         document.body.classList.add('dark-mode');
+    }
+    const toggle = document.getElementById('theme-toggle');
+    if (toggle) {
+        toggle.checked = isDark;
     }
 }
 
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
-    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    const isDark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDark);
+    const toggle = document.getElementById('theme-toggle');
+    if (toggle) {
+        toggle.checked = isDark;
+    }
 }
 
 function initCountdown() {
@@ -50,7 +59,6 @@ function initCountdown() {
     }, 1000);
 }
 
-// Ajanda Mantığı
 function isCurrentEvent(timeStr) {
     const now = new Date();
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
@@ -75,7 +83,6 @@ database.ref('agenda').on('value', (snapshot) => {
     }
 });
 
-// Networking Mantığı
 function toggleNetworkForm() {
     const form = document.getElementById('network-form-section');
     if(form) form.style.display = form.style.display === 'none' ? 'block' : 'none';
