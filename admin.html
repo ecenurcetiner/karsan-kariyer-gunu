@@ -3,31 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
     <title>Karsan Yönetim Paneli</title>
     <link rel="icon" type="image/png" href="Karsan.png">
     <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container" data-aos="fade-up">
         <header>
             <img src="karsan.jpg" alt="Karsan Logo" class="logo">
             <h2>Yönetici Paneli</h2>
         </header>
         <nav class="nav-menu">
-            <a href="index.html" class="nav-link">Ajanda</a>
-            <a href="networking.html" class="nav-link">Networking Havuzu</a>
+            <button class="burger-menu" onclick="toggleNav()">☰</button>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html" class="nav-link">Ajanda</a>
+                <a href="networking.html" class="nav-link">Networking Havuzu</a>
+                <button onclick="toggleDarkMode()" class="theme-toggle" title="Gece/Gündüz Modu">🌓</button>
+            </div>
         </nav>
         
-        <div id="login-section" class="admin-panel">
+        <div id="login-section" class="admin-panel" data-aos="zoom-in">
             <input type="text" id="username" placeholder="Kullanıcı Adı">
             <input type="password" id="password" placeholder="Şifre">
             <button onclick="login()">Giriş Yap</button>
         </div>
 
-        <div id="edit-section" class="admin-panel" style="display:none;">
+        <div id="edit-section" class="admin-panel" style="display:none;" data-aos="fade-in">
             <div class="admin-tabs">
                 <button onclick="showSection('agenda-edit')">Ajanda Yönetimi</button>
                 <button onclick="showSection('network-edit')">Havuz Yönetimi</button>
@@ -70,6 +76,7 @@
             </div>
         </div>
     </div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="admin.js"></script>
 </body>
 </html>
