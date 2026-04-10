@@ -127,18 +127,77 @@ button:hover {
     font-size: 0.85rem;
 }
 
+/* Networking Grid & Card CSS */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background: var(--bg-grey);
+}
+
+.network-card {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.network-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.network-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid var(--karsan-red);
+}
+
+.network-name {
+    font-weight: bold;
+    color: var(--dark-grey);
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+}
+
+.network-uni {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 15px;
+    min-height: 40px;
+}
+
+.connect-btn {
+    background: #0A66C2;
+    display: block;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 4px;
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
 /* Mobil Uyumluluk */
 @media (max-width: 600px) {
     body {
         padding: 10px;
     }
-    
     th, td {
         padding: 12px 8px;
         font-size: 0.8rem;
     }
-    
     .logo {
         height: 50px;
+    }
+    .admin-panel > div {
+        grid-template-columns: 1fr !important;
     }
 }
