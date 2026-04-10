@@ -14,34 +14,12 @@ const database = firebase.database();
 
 document.addEventListener("DOMContentLoaded", function() {
     AOS.init({ duration: 800, once: true });
-    checkDarkMode();
     initCountdown();
 });
 
 function toggleNav() {
     const nav = document.getElementById('nav-links');
     if(nav) nav.classList.toggle('show');
-}
-
-function checkDarkMode() {
-    const isDark = localStorage.getItem('darkMode') === 'true';
-    if (isDark) {
-        document.body.classList.add('dark-mode');
-    }
-    const toggle = document.getElementById('theme-toggle');
-    if (toggle) {
-        toggle.checked = isDark;
-    }
-}
-
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-    const isDark = document.body.classList.contains('dark-mode');
-    localStorage.setItem('darkMode', isDark);
-    const toggle = document.getElementById('theme-toggle');
-    if (toggle) {
-        toggle.checked = isDark;
-    }
 }
 
 function initCountdown() {
