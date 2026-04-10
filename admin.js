@@ -13,79 +13,81 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 const auth = firebase.auth();
 
-// Saat ve dakika seçeneklerini doldurma
 function fillTimeSelectors() {
-    const sh = document.getElementById('start-h');
-    const sm = document.getElementById('start-m');
-    const eh = document.getElementById('end-h');
-    const em = document.getElementById('end-m');
-
-    for(let i=8; i<=20; i++) {
-        let val = i < 10 ? '0'+i : i;
-        sh.innerHTML += `<option value="${val}">${val}</option>`;
-        eh.innerHTML += `<option value="${val}">${val}</option>`;
-    }
-    for(let i=0; i<60; i+=5) {
-        let val = i < 10 ? '0'+i : i;
-        sm.innerHTML += `<option value="${val}">${val}</option>`;
-        em.innerHTML += `<option value="${val}">${val}</option>`;
-    }
+    const ids = ['start-h', 'end-h', 'start-m', 'end-m'];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if(!el) return;
+        const limit = id.includes('-h') ? 24 : 60;
+        const step = id.includes('-m') ? 5 : 1;
+        for(let i=0; i<limit; i+=step) {
+            let val = i < 10 ? '0'+i : i;
+            el.innerHTML += `<option value="${val}">${val}</option>`;
+        }
+    });
 }
 
 async function login() {
     const userInp = document.getElementById('username').value;
     const passInp = document.getElementById('password').value;
-    const targetEmail = "ecenurcetiner1@gmail.com";
-
     if (userInp === "karsan") {
         try {
-            await auth.signInWithEmailAndPassword(targetEmail, passInp);
+            await auth.signInWithEmailAndPassword("ecenurcetiner1@gmail.com", passInp);
             document.getElementById('login-section').style.display = 'none';
             document.getElementById('edit-section').style.display = 'block';
             fillTimeSelectors();
             loadAdminAgenda();
-        } catch (error) {
-            alert("Giriş başarısız.");
-        }
+            loadAdminNetwork();
+        } catch (e) { alert("Yetkisiz Erişim."); }
     }
 }
 
+function showSection(id) {
+    ['agenda-edit', 'network-edit'].forEach(s => {
+        const el = document.getElementById(s);
+        if(el) el.style.display = s === id ? 'block' : 'none';
+    });
+}
+
 function addEvent() {
-    const sh = document.getElementById('start-h').value;
-    const sm = document.getElementById('start-m').value;
-    const eh = document.getElementById('end-h').value;
-    const em = document.getElementById('end-m').value;
+    const time = `${document.getElementById('start-h').value}:${document.getElementById('start-m').value} - ${document.getElementById('end-h').value}:${document.getElementById('end-m').value}`;
     const title = document.getElementById('title').value;
-
-    const formattedTime = `${sh}:${sm} - ${eh}:${em}`;
-
     if (title) {
-        database.ref('agenda').push({ time: formattedTime, title: title });
+        database.ref('agenda').push({ time, title });
         document.getElementById('title').value = '';
     }
 }
 
-function deleteEvent(key) {
-    if (confirm("Silinsin mi?")) database.ref('agenda/' + key).remove();
-}
+function deleteEvent(key) { if(confirm("Silinsin mi?")) database.ref('agenda/' + key).remove(); }
 
-function logout() {
-    auth.signOut().then(() => location.reload());
-}
+function deleteNetwork(key) { if(confirm("Silinsin mi?")) database.ref('networking/' + key).remove(); }
 
 function loadAdminAgenda() {
     database.ref('agenda').on('value', (snapshot) => {
-        const data = snapshot.val();
         const tbody = document.getElementById('admin-agenda-body');
+        if(!tbody) return;
         tbody.innerHTML = '';
+        const data = snapshot.val();
         if (data) {
-            Object.keys(data).sort((a,b) => data[a].time.localeCompare(data[b].time)).forEach(key => {
-                tbody.innerHTML += `<tr>
-                    <td><b>${data[key].time}</b></td>
-                    <td>${data[key].title}</td>
-                    <td><button class="delete-btn" onclick="deleteEvent('${key}')">Sil</button></td>
-                </tr>`;
+            Object.keys(data).forEach(k => {
+                tbody.innerHTML += `<tr><td>${data[k].time}</td><td>${data[k].title}</td><td><button onclick="deleteEvent('${k}')" class="delete-btn">X</button></td></tr>`;
             });
         }
     });
 }
+
+function loadAdminNetwork() {
+    database.ref('networking').on('value', (snapshot) => {
+        const tbody = document.getElementById('admin-network-body');
+        if(!tbody) return;
+        tbody.innerHTML = '';
+        const data = snapshot.val();
+        if (data) {
+            Object.keys(data).forEach(k => {
+                tbody.innerHTML += `<tr><td>${data[k].name}</td><td>${data[k].uni}</td><td><button onclick="deleteNetwork('${k}')" class="delete-btn">X</button></td></tr>`;
+            });
+        }
+    });
+}
+
+function logout() { auth.signOut().then(() => location.reload()); }
