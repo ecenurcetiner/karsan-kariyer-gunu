@@ -14,13 +14,10 @@ const database = firebase.database();
 const auth = firebase.auth();
 
 document.addEventListener("DOMContentLoaded", function() {
-    AOS.init({ duration: 800, once: true });
+    if (typeof AOS !== 'undefined') {
+        AOS.init({ duration: 800, once: true });
+    }
 });
-
-function toggleNav() {
-    const nav = document.getElementById('nav-links');
-    if(nav) nav.classList.toggle('show');
-}
 
 function fillTimeSelectors() {
     const ids = ['start-h', 'end-h', 'start-m', 'end-m'];
