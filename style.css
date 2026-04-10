@@ -1,3 +1,9 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 :root {
     --karsan-red: #E30613;
     --dark-grey: #333333;
@@ -9,13 +15,13 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-grey);
-    margin: 0;
-    padding: 20px;
+    color: var(--dark-grey);
     line-height: 1.6;
+    padding: 20px;
 }
 
 .container {
-    width: 95%;
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     background: var(--white);
@@ -33,14 +39,75 @@ header {
 
 .logo {
     height: 65px;
-    width: auto;
+    max-width: 100%;
     object-fit: contain;
+}
+
+.nav-menu {
+    background: #f8f8f8;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--dark-grey);
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+.nav-link.active {
+    color: var(--karsan-red);
+    border-bottom: 2px solid var(--karsan-red);
+}
+
+.hero-section {
+    padding: 30px 20px;
+    text-align: center;
+    background: var(--bg-grey);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.countdown {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--karsan-red);
+    padding: 15px 25px;
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    width: 100%;
+    max-width: 400px;
+}
+
+.btn-calendar {
+    background: var(--dark-grey);
+    color: var(--white);
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    font-weight: bold;
+    display: inline-block;
+    width: 100%;
+    max-width: 400px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    width: 100%;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    background: var(--white);
+    min-width: 400px;
 }
 
 th {
@@ -50,23 +117,16 @@ th {
     text-align: left;
     text-transform: uppercase;
     font-size: 0.85rem;
-    letter-spacing: 1px;
 }
 
 td {
     padding: 16px;
     border-bottom: 1px solid var(--border-color);
-    color: var(--dark-grey);
     font-size: 0.95rem;
-}
-
-tr:last-child td {
-    border-bottom: none;
 }
 
 .active-event {
     background-color: var(--karsan-red) !important;
-    transition: background-color 0.3s ease;
 }
 
 .active-event td, .active-event td b {
@@ -74,60 +134,11 @@ tr:last-child td {
     font-weight: 700;
 }
 
-.admin-panel {
-    padding: 30px;
-}
-
-h2, h3 {
-    color: var(--dark-grey);
-    margin-top: 0;
-}
-
-input, select {
-    padding: 12px 15px;
-    margin: 10px 0;
-    border: 1px solid #CCCCCC;
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: border-color 0.2s;
-}
-
-input:focus, select:focus {
-    border-color: var(--karsan-red);
-    outline: none;
-}
-
-button {
-    padding: 12px 24px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 6px;
-    background: var(--karsan-red);
-    color: var(--white);
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: opacity 0.2s;
-}
-
-button:hover {
-    opacity: 0.9;
-}
-
-.delete-btn {
-    background: var(--dark-grey);
-    padding: 6px 12px;
-    font-size: 0.85rem;
-}
-
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
     padding: 20px;
-    background: var(--bg-grey);
 }
 
 .network-card {
@@ -135,50 +146,124 @@ button:hover {
     border-radius: 8px;
     padding: 25px 20px;
     text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     border: 1px solid var(--border-color);
-    transition: transform 0.2s;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-.network-card:hover {
-    transform: translateY(-5px);
-}
-
-.nav-menu {
-    background: #f8f8f8;
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.nav-link {
-    text-decoration: none;
-    color: var(--dark-grey);
-    margin: 0 15px;
+.network-name {
     font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
 }
 
-.nav-link.active {
-    color: var(--karsan-red);
+.network-uni, .network-dept {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 5px;
 }
 
-@media (max-width: 600px) {
+.connect-btn {
+    background: #0A66C2;
+    display: block;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 4px;
+    color: var(--white);
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.form-section, .admin-panel {
+    padding: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+input, select {
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+button {
+    padding: 14px 24px;
+    background: var(--karsan-red);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.btn-submit {
+    width: 100%;
+}
+
+.btn-primary {
+    background: var(--dark-grey);
+}
+
+.btn-dark {
+    background: #333;
+}
+
+.delete-btn {
+    background: var(--dark-grey);
+    padding: 8px 15px;
+}
+
+.header-action {
+    padding: 20px;
+    text-align: center;
+}
+
+.admin-tabs {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.admin-tabs button {
+    flex: 1;
+    min-width: 120px;
+}
+
+.time-select {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
     body {
         padding: 0;
     }
     
     .container {
-        width: 100%;
-        max-width: 100%;
         border-radius: 0;
+        box-shadow: none;
     }
     
     th, td {
-        padding: 12px 8px;
-        font-size: 0.8rem;
+        padding: 12px 10px;
+        font-size: 0.85rem;
     }
     
     .logo {
         height: 50px;
+    }
+    
+    .grid-container {
+        grid-template-columns: 1fr;
     }
 }
