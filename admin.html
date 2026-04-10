@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karsan Kariyer Günü - Yönetim Paneli</title>
+    <title>Karsan Yönetim Paneli</title>
+    <link rel="icon" type="image/png" href="Karsan.png">
     <link rel="stylesheet" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
@@ -13,11 +14,11 @@
     <div class="container">
         <header>
             <img src="karsan.jpg" alt="Karsan Logo" class="logo">
-            <h2 style="color: var(--dark-grey); margin-top: 10px;">Yönetici Paneli</h2>
+            <h2>Yönetici Paneli</h2>
         </header>
-        <nav style="text-align: center; background: #eee; padding: 10px;">
-            <a href="index.html" style="margin-right: 20px; text-decoration: none; color: var(--karsan-red); font-weight: bold;">Ajanda</a>
-            <a href="networking.html" style="text-decoration: none; color: var(--karsan-red); font-weight: bold;">Networking Havuzu</a>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link">Ajanda</a>
+            <a href="networking.html" class="nav-link">Networking Havuzu</a>
         </nav>
         
         <div id="login-section" class="admin-panel">
@@ -27,29 +28,46 @@
         </div>
 
         <div id="edit-section" class="admin-panel" style="display:none;">
-            <h3>Yeni Etkinlik Ekle</h3>
+            <div class="admin-tabs">
+                <button onclick="showSection('agenda-edit')">Ajanda Yönetimi</button>
+                <button onclick="showSection('network-edit')">Havuz Yönetimi</button>
+                <button onclick="logout()" class="btn-dark">Çıkış</button>
+            </div>
             
-            <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px;">
-                <span>Başlangıç:</span>
-                <select id="start-h"></select> : <select id="start-m"></select>
-                <span style="margin-left: 20px;">Bitiş:</span>
-                <select id="end-h"></select> : <select id="end-m"></select>
+            <div id="agenda-edit" class="section">
+                <h3>Etkinlik Ekle</h3>
+                <div class="time-select">
+                    <select id="start-h"></select>:<select id="start-m"></select> - 
+                    <select id="end-h"></select>:<select id="end-m"></select>
+                </div>
+                <input type="text" id="title" placeholder="Etkinlik Adı">
+                <button onclick="addEvent()">Ekle</button>
+                
+                <table style="margin-top:20px;">
+                    <thead>
+                        <tr>
+                            <th>Saat</th>
+                            <th>Başlık</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-agenda-body"></tbody>
+                </table>
             </div>
 
-            <input type="text" id="title" placeholder="Etkinlik Adı">
-            <button onclick="addEvent()">Ekle</button>
-            <button onclick="logout()" style="background:#333;">Çıkış Yap</button>
-            
-            <table style="margin-top:20px;">
-                <thead>
-                    <tr>
-                        <th>Saat</th>
-                        <th>Etkinlik</th>
-                        <th>İşlem</th>
-                    </tr>
-                </thead>
-                <tbody id="admin-agenda-body"></tbody>
-            </table>
+            <div id="network-edit" class="section" style="display:none;">
+                <h3>Profil Havuzu</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>İsim</th>
+                            <th>Üni/Dept</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-network-body"></tbody>
+                </table>
+            </div>
         </div>
     </div>
     <script src="admin.js"></script>
