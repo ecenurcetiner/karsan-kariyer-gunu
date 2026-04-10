@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Karsan Kariyer Günü - Ajanda</title>
+    <link rel="icon" type="image/png" href="Karsan.png">
     <link rel="stylesheet" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
@@ -13,9 +14,9 @@
         <header>
             <img src="karsan.jpg" alt="Karsan Logo" class="logo">
         </header>
-        <nav style="text-align: center; background: #eee; padding: 10px;">
-            <a href="index.html" style="margin-right: 20px; text-decoration: none; color: var(--karsan-red); font-weight: bold;">Ajanda</a>
-            <a href="networking.html" style="text-decoration: none; color: var(--karsan-red); font-weight: bold;">Networking Havuzu</a>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link active">Ajanda</a>
+            <a href="networking.html" class="nav-link">Networking Havuzu</a>
         </nav>
         <div id="agenda-container">
             <table id="agenda-table">
@@ -25,8 +26,7 @@
                         <th>Etkinlik</th>
                     </tr>
                 </thead>
-                <tbody id="agenda-body">
-                </tbody>
+                <tbody id="agenda-body"></tbody>
             </table>
         </div>
     </div>
