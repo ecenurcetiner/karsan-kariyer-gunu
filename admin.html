@@ -23,7 +23,10 @@
             <div class="nav-links" id="nav-links">
                 <a href="index.html" class="nav-link">Ajanda</a>
                 <a href="networking.html" class="nav-link">Networking Havuzu</a>
-                <button onclick="toggleDarkMode()" class="theme-toggle" title="Gece/Gündüz Modu">🌓</button>
+                <label class="theme-switch">
+                    <input type="checkbox" id="theme-toggle" onchange="toggleDarkMode()">
+                    <span class="slider"></span>
+                </label>
             </div>
         </nav>
         
